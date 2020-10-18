@@ -1,0 +1,67 @@
+@import '../../../assets/styles/variables.scss';
+@import '../../../assets/styles/mixins.scss';
+
+.label {
+  display: block;
+  position: relative;
+  max-width: 300px;
+
+  span {
+    font-size: 18px;
+    margin-right: 18px;
+    color: $mainColor;
+  }
+
+  .error {
+    cursor: pointer;
+    position: absolute;
+    color: red;
+    top: 50%;
+    right: -20px;
+
+    &:hover {
+      .errorMessage {
+        transform: translateY(-50%) scale(1);
+      }
+    }
+
+    .errorMessage {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      min-width: 100px;
+      padding: 5px;
+      text-align: center;
+      transform: translateY(-50%) scale(0);
+      transform-origin: left;
+      transition: .3s;
+    }
+  }
+
+  .showPassword {
+    position: absolute;
+    cursor: pointer;
+    top: 50%;
+    right: 8px;
+  }
+
+  .input {
+    min-height: 40px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #e8e8e8;
+    padding: 5px 15px;
+    transition: .2s;
+    height: 30px;
+    color: $mainColor;
+    font-size: 16px;
+
+    &:hover, &:focus {
+      border: 1px solid $accentColor;
+    }
+
+    &::placeholder {
+      color: $secondaryColor;
+    }
+  }
+}
