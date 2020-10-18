@@ -1,13 +1,13 @@
 import {API_KEY, instance} from "./api";
 
-export const weatherAPI = {
+export const currentWeatherApi = {
     currentWeather(lat: number, lon: number) {
         return instance.get<currectWeatherType>(`/current.json?key=${API_KEY}&q=${lat},${lon}`)
     }
 }
 
 export type currentWeatherResponseType = {
-    condition: conditionResponseType
+    condition: ConditionResponseType
     wind_kph: number
     wind_degree: number
     wind_dir: string
@@ -15,7 +15,6 @@ export type currentWeatherResponseType = {
     humidity: number
     cloud: number
     feelslike_c: number
-    vis_km: number
     uv: number
     gust_kph: number
     last_updated: string
@@ -23,7 +22,7 @@ export type currentWeatherResponseType = {
     is_day: number
 }
 
-export type conditionResponseType = {
+export type ConditionResponseType = {
     text: string,
     icon: string
     code: number

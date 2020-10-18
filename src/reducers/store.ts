@@ -2,12 +2,12 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 import {requestReducer} from "./request-reducer";
-import {weatherReducer} from "./weather-reducers";
+import {currentWeatherReducer} from "./currentWeather-reducer";
 
 
 
 const rootReducer = combineReducers({
-    weather: weatherReducer,
+    weather: currentWeatherReducer,
     request: requestReducer,
 })
 
