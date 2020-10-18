@@ -1,6 +1,7 @@
 import {Dispatch} from 'redux'
 import {errorAC, ErrorACType, isFetchingAC, isFetchingACType} from "./request-reducer";
-import {ConditionResponseType, currentWeatherResponseType, LocationResponseType, currentWeatherApi} from "../api/currentWeather-api";
+import {ConditionResponseType, CurrentWeatherResponseType, LocationResponseType} from "../types/common-types";
+import {currentWeatherApi} from "../api/currentWeather-api";
 
 
 let initialState: InitialStateType = {
@@ -9,7 +10,7 @@ let initialState: InitialStateType = {
     location: {} as LocationResponseType,
     currentWeather: {
         condition: {} as ConditionResponseType
-    } as currentWeatherResponseType
+    } as CurrentWeatherResponseType
 } as InitialStateType;
 
 export const currentWeatherReducer = (state: InitialStateType = initialState, action: ActionsType) => {
@@ -28,7 +29,7 @@ export const currentWeatherReducer = (state: InitialStateType = initialState, ac
 // Action creators
 export const userCoordinatesAC = (lat: number, lon: number) => ({type: 'COORDINATES', lat, lon} as const)
 export const userLocationAC = (location: LocationResponseType) => ({type: 'LOCATION', location} as const)
-export const currentWeatherAC = (currentWeather: currentWeatherResponseType) => ({
+export const currentWeatherAC = (currentWeather: CurrentWeatherResponseType) => ({
     type: 'CURRENT_WEATHER',
     currentWeather
 } as const)
@@ -60,13 +61,7 @@ export type InitialStateType = {
     lat: number
     lon: number
     location: LocationResponseType
-    currentWeather: currentWeatherResponseType
-}
-
-export type LocationType = {
-    name: string
-    region: string
-    country: string
+    currentWeather: CurrentWeatherResponseType
 }
 
 export type ActionsType = userCoordinatesACType | userLocationACType | currentWeatherACType

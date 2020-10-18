@@ -1,0 +1,29 @@
+@import '../../../assets/styles/variables.scss';
+@import '../../../assets/styles/mixins.scss';
+
+.btn {
+  cursor: pointer;
+  width: 100%;
+  max-width: 150px;
+  color: $lightColor;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: $accentColor;
+  text-transform: uppercase;
+  height: 40px;
+  border: 1px solid $accentColor;
+  transition: .2s;
+  outline: none;
+  margin-right: 3px;
+
+  &:hover {
+    border: 1px solid midnightblue;
+    background-color: $lightColor;
+    color: midnightblue;
+  }
+
+  &:disabled {
+    opacity: .5
+  }
+}
+

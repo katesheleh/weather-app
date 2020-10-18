@@ -1,0 +1,38 @@
+@mixin text($fontSize, $fontWeight, $lineHeight, $color) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: $color;
+}
+
+@mixin transition($prop: all) {
+  -webkit-transition: $prop 0.2s ease-in-out;
+  -moz-transition: $prop 0.2s ease-in-out;
+  -o-transition: $prop 0.2s ease-in-out;
+  -ms-transition: $prop 0.2s ease-in-out;
+  transition: $prop 0.2s ease-in-out;
+}
+
+@mixin btn($colorPrimary: $darkBg,
+  $colorSecondary: $lightColor,
+  $bgStart: transparent,
+  $fontSize: 14px,
+  $padding: 5px 10px,
+  $bgHover: $colorPrimary,
+  $borderColor: $colorPrimary) {
+
+  display: inline-block;
+  padding: $padding;
+  font-size: $fontSize;
+  font-weight: 600;
+  line-height: 1.5;
+  color: $colorPrimary;
+  background-color: $bgStart;
+  border: 2px solid $borderColor;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $bgHover;
+    color: $colorSecondary;
+  }
+}

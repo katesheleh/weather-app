@@ -2,19 +2,19 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../reducers/store";
 import Location from "./Location/Location";
-import {getCurrentWeatherTC, getUserCoordinatesTC, LocationType} from "../../reducers/currentWeather-reducer";
+import {getCurrentWeatherTC, getUserCoordinatesTC} from "../../reducers/currentWeather-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import CurrentWeatherData from "./CurrentWeatherData/CurrentWeatherData";
-import {currentWeatherResponseType} from "../../api/currentWeather-api";
+import {CurrentWeatherResponseType, LocationResponseType} from "../../types/common-types";
 
 
 const Weather = () => {
     const dispatch = useDispatch()
     const requestIsFetching = useSelector<AppRootStateType, boolean>(state => state.request.isFetching)
-    const lat = useSelector<AppRootStateType, number>(state => state.weather.lat)
-    const lon = useSelector<AppRootStateType, number>(state => state.weather.lon)
-    const location = useSelector<AppRootStateType, LocationType>(state => state.weather.location)
-    const currentWeather = useSelector<AppRootStateType, currentWeatherResponseType>(state => state.weather.currentWeather)
+    const lat = useSelector<AppRootStateType, number>(state => state.currentWeather.lat)
+    const lon = useSelector<AppRootStateType, number>(state => state.currentWeather.lon)
+    const location = useSelector<AppRootStateType, LocationResponseType>(state => state.currentWeather.location)
+    const currentWeather = useSelector<AppRootStateType, CurrentWeatherResponseType>(state => state.currentWeather.currentWeather)
 
     useEffect(() => {
         dispatch(getUserCoordinatesTC())
