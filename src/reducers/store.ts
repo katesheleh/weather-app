@@ -4,12 +4,14 @@ import thunkMiddleware from 'redux-thunk'
 import {requestReducer} from "./request-reducer";
 import {currentWeatherReducer} from "./currentWeather-reducer";
 import {forecastReducer} from "./forecast-reducer";
+import {searchReducer} from "./search-reducer";
 
 
 const rootReducer = combineReducers({
     currentWeather: currentWeatherReducer,
     forecast: forecastReducer,
     request: requestReducer,
+    search: searchReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));

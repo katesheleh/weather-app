@@ -79,3 +79,13 @@ export type HourResponseType = {
     gust_kph: number
     condition: ConditionResponseType
 }
+
+export type searchPlaceResponseType = {
+    id: number
+    name: string
+    region: string
+    country: string
+    lat: number
+    lon: number
+    url: string
+}

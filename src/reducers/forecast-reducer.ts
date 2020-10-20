@@ -28,7 +28,6 @@ export const getForecastTC = (days: number, lat: number, lon: number) => (dispat
     dispatch(isFetchingAC(true))
     forecastAPI.dailyWeather(days, lat, lon)
         .then(res => {
-            console.log(res.data.forecast)
             dispatch(isFetchingAC(false))
             dispatch(forecastDataAC(res.data.forecast.forecastday))
         })
