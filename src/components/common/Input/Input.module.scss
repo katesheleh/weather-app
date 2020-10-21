@@ -4,7 +4,6 @@
 .label {
   display: block;
   position: relative;
-  max-width: 300px;
 
   span {
     font-size: 18px;
@@ -46,18 +45,21 @@
   }
 
   .input {
+    display: block;
     min-height: 40px;
     width: 100%;
     outline: none;
-    border: 1px solid #e8e8e8;
-    padding: 5px 15px;
+    border: 0;
+    padding: 15px 15px;
     transition: .2s;
-    height: 30px;
-    color: $mainColor;
-    font-size: 16px;
+    background: rgba($lightColor, 0.6);
+    font-family: $primaryFontFamily;
+    @include text(20px, 500, 1, $mainColor);
+    box-sizing: border-box;
+    border-radius: 10px;
 
     &:hover, &:focus {
-      border: 1px solid $accentColor;
+      background: rgba($lightColor, 1);
     }
 
     &::placeholder {

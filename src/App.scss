@@ -1,0 +1,35 @@
+@import '/assets/styles/variables.scss';
+@import '/assets/styles/mixins.scss';
+
+h1 {
+  text-align: center;
+  @include text(50px, 300, 1, $lightColor);
+}
+
+h2 {
+  margin-bottom: 15px;
+  margin-top: 0;
+  @include text(40px, 300, 1, $lightColor);
+}
+
+.App {
+  padding-top: 30px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1250px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionWrap {
+  background-color: rgba($lightColor, 0.2);
+  padding: 30px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 2px 2px 10px 0 rgba($mainColor, 0.4);
+}

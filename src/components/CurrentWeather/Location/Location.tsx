@@ -5,7 +5,7 @@ const Location = (props: LocationPropsType) => {
 
     return (
         <div className={styles.location}>
-            <h3>Forecast for {props.name}, {props.region}, {props.country}</h3>
+            <h2>{props.name}, {props.region}, {props.country}</h2>
         </div>
     )
 }

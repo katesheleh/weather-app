@@ -23,26 +23,32 @@ const Weather = () => {
         }
     }, [lat, lon])
 
-    return (
-        <div>
-            {requestIsFetching && <Preloader/>}
-            <h1>Weather</h1>
+    const updateDate = new Date(currentWeather.last_updated)
+    let currentWeekday = {weekday: 'long'}
+    let currentDate = {year: 'numeric', month: 'long', day: 'numeric'}
 
-            {(!lat && !lon)
-                ? 'You should allow see your location'
-                : <>
-                    <Location name={location.name} region={location.region} country={location.country}/>
-                    <CurrentWeatherData last_updated={currentWeather.last_updated}
-                                        temp_c={currentWeather.temp_c}
-                                        feelslike_c={currentWeather.feelslike_c}
-                                        wind_kph={currentWeather.wind_kph}
-                                        wind_dir={currentWeather.wind_dir}
-                                        gust_kph={currentWeather.gust_kph}
-                                        humidity={currentWeather.humidity}
-                                        condition_text={currentWeather.condition.text}
-                                        condition_img={currentWeather.condition.icon}
-                    />
-                </>}
+    return (
+        <div className='container'>
+            <div className='sectionWrap'>
+                {requestIsFetching && <Preloader/>}
+                {(!lat && !lon)
+                    ? 'You should allow see your location'
+                    : <>
+
+                        <Location name={location.name} region={location.region} country={location.country}/>
+                        <CurrentWeatherData last_updated_weekday={updateDate.toLocaleString('en-US', currentWeekday)}
+                                            last_updated_date={updateDate.toLocaleString('en-US', currentDate)}
+                                            temp_c={currentWeather.temp_c}
+                                            feelslike_c={currentWeather.feelslike_c}
+                                            wind_kph={currentWeather.wind_kph}
+                                            wind_dir={currentWeather.wind_dir}
+                                            gust_kph={currentWeather.gust_kph}
+                                            humidity={currentWeather.humidity}
+                                            condition_text={currentWeather.condition.text}
+                                            condition_img={currentWeather.condition.icon}
+                        />
+                    </>}
+            </div>
         </div>
     )
 }

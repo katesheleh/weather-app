@@ -21,27 +21,28 @@ const Forecast = () => {
         }
     }, [lat, lon, forecastDays])
     return (
-        <div>
-            <h2>Forecast</h2>
-            <div className={styles.btns}>
-                <Button labelTitle='1 day' onClick={() => setForecastDays(1)}/>
-                <Button labelTitle='2 day' onClick={() => setForecastDays(2)}/>
-                <Button labelTitle='3 day' onClick={() => setForecastDays(3)}/>
-            </div>
-            <div className={styles.days}>
-                {forecastInfo.map((d) => <div className={styles.day} key={d.date}>
-                    <ForecastDay date={d.date}
-                                 sunrise={d.astro.sunrise}
-                                 sunset={d.astro.sunset}
-                                 icon={d.day.condition.icon}
-                                 condition_text={d.day.condition.text}
-                                 min_temp={d.day.mintemp_c}
-                                 max_temp={d.day.maxtemp_c}
-                    />
-                </div>)}
+        <div className='container'>
+            <div className='sectionWrap'>
+                <h2>Forecast</h2>
+                <div className={styles.btns}>
+                    <Button labelTitle='1 day' onClick={() => setForecastDays(1)}/>
+                    <Button labelTitle='2 day' onClick={() => setForecastDays(2)}/>
+                    <Button labelTitle='3 day' onClick={() => setForecastDays(3)}/>
+                </div>
+                <div className={styles.days}>
+                    {forecastInfo.map((d) => <div className={styles.day} key={d.date}>
+                        <ForecastDay date={d.date}
+                                     sunrise={d.astro.sunrise}
+                                     sunset={d.astro.sunset}
+                                     icon={d.day.condition.icon}
+                                     condition_text={d.day.condition.text}
+                                     min_temp={d.day.mintemp_c}
+                                     max_temp={d.day.maxtemp_c}
+                        />
+                    </div>)}
+                </div>
             </div>
         </div>
-
     )
 }
 

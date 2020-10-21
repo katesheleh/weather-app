@@ -8,18 +8,18 @@
   color: $lightColor;
   font-size: 16px;
   font-weight: bold;
-  background-color: $accentColor;
+  background-color: $accentColorDark;
   text-transform: uppercase;
   height: 40px;
-  border: 1px solid $accentColor;
+  border: 1px solid $accentColorDark;
   transition: .2s;
   outline: none;
   margin-right: 3px;
 
   &:hover {
-    border: 1px solid midnightblue;
+    border: 1px solid $accentColorDark;
     background-color: $lightColor;
-    color: midnightblue;
+    color: $accentColorDark;
   }
 
   &:disabled {

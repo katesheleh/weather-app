@@ -1,0 +1,11 @@
+@import '/assets/styles/variables.scss';
+@import '/assets/styles/mixins.scss';
+
+body {
+  margin: 0;
+  font-family: $primaryFontFamily;
+  @include text(20px, 400, 1.5, $lightColor);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(to bottom, $accentColorDark, $accentColorLight)
+}

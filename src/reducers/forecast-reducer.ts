@@ -25,15 +25,15 @@ export const forecastDataAC = (forecastday: Array<ForecastdayResponseType>) => (
 
 // THUNK
 export const getForecastTC = (days: number, lat: number, lon: number) => (dispatch: Dispatch<ActionsType | isFetchingACType | ErrorACType>) => {
-    dispatch(isFetchingAC(true))
+    //dispatch(isFetchingAC(true))
     forecastAPI.dailyWeather(days, lat, lon)
         .then(res => {
-            dispatch(isFetchingAC(false))
+            //dispatch(isFetchingAC(false))
             dispatch(forecastDataAC(res.data.forecast.forecastday))
         })
         .catch((error) => {
             dispatch(errorAC(error.response.data.error))
-            dispatch(isFetchingAC(false))
+            //dispatch(isFetchingAC(false))
         })
 }
 

@@ -43,16 +43,16 @@ export const getUserCoordinatesTC = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 export const getCurrentWeatherTC = (lat: number, lon: number) => (dispatch: Dispatch<ActionsType | isFetchingACType | ErrorACType>) => {
-    dispatch(isFetchingAC(true))
+    //dispatch(isFetchingAC(true))
     currentWeatherApi.currentWeather(lat, lon)
         .then(res => {
-            dispatch(isFetchingAC(false))
+            //dispatch(isFetchingAC(false))
             dispatch(userLocationAC(res.data.location))
             dispatch(currentWeatherAC(res.data.current))
         })
         .catch((error) => {
             dispatch(errorAC(error.response.data.error))
-            dispatch(isFetchingAC(false))
+            //dispatch(isFetchingAC(false))
         })
 }
 

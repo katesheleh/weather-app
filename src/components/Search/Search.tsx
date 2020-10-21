@@ -14,7 +14,7 @@ const Search = () => {
     const dispatch = useDispatch()
     const searchData = useSelector<AppRootStateType, Array<searchPlaceResponseType>>(state => state.search.data)
     const [searchVal, setSearchVal] = useState('')
-    const debouncedSearchTerm = useDebounce(searchVal, 500);
+    const debouncedSearchTerm = useDebounce(searchVal, 200);
 
     const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setSearchVal(e.currentTarget.value)
@@ -38,15 +38,18 @@ const Search = () => {
     }, [debouncedSearchTerm])
 
     return (
-        <div>
-            <h2>Search</h2>
-            <Input value={searchVal} labelTitle='Search' onChange={onInputChange} onKeyPress={onKeyInputPressHandler}/>
-            <div className={styles.searchOptions}>
-                {searchData.map(d => {
-                    return (
-                        <p key={d.id} onClick={() => onPlaceClick(d.lat, d.lon)}>{d.name}</p>
-                    )
-                })}
+        <div className='container'>
+            <div className='sectionWrap'>
+                <h2>Search</h2>
+                <Input value={searchVal} labelTitle='' onChange={onInputChange}
+                       onKeyPress={onKeyInputPressHandler} placeholder='Search a place.....'/>
+                <div className={styles.searchOptions}>
+                    {searchData.map(d => {
+                        return (
+                            <p key={d.id} onClick={() => onPlaceClick(d.lat, d.lon)}>{d.name}</p>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )

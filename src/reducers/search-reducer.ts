@@ -1,6 +1,5 @@
 import {Dispatch} from 'redux'
 import {errorAC, ErrorACType, isFetchingAC, isFetchingACType} from "./request-reducer";
-import {ForecastdayResponseType} from "../api/forecast-api";
 import {searchAPI} from "../api/search-api";
 import {searchPlaceResponseType} from "../types/common-types";
 

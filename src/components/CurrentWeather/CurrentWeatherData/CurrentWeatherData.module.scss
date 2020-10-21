@@ -1,0 +1,52 @@
+@import '../../../assets/styles/variables.scss';
+@import '../../../assets/styles/mixins.scss';
+
+.currentWeather {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.colLeft {
+  width: 50%;
+}
+
+.colLeftInner {
+  position: relative;
+  width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.colRight {
+  width: 50%;
+}
+
+.desc {
+
+}
+
+.currentWeatherImg {
+  position: absolute;
+  left: -40px;
+  top: -52px;
+  filter: brightness(0) invert(1);
+  width: 150px;
+  opacity: 0.15;
+}
+
+
+.largeText {
+  text-align: center;
+  margin: 0;
+  @include text(140px, 700, 1, $lightColor);
+}
+
+.bigText {
+  text-align: center;
+  margin: 0;
+  @include text(30px, 300, 1, $lightColor);
+}
