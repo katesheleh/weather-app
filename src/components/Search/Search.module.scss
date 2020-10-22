@@ -1,0 +1,15 @@
+@import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
+
+.option {
+  margin: 0;
+  padding: 15px;
+  border-radius: 10px;
+  border-bottom: 1px solid rgba($lightColor, 0.1);
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba($lightColor, 0.2);
+  }
+}

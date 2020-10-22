@@ -1,5 +1,7 @@
 import React from "react"
 import styles from './CurrentWeatherData.module.scss'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBacon, faCalendarAlt, faTemperatureHigh, faWater, faWind} from "@fortawesome/free-solid-svg-icons";
 
 const CurrentWeatherData = (props: PropsType) => {
 
@@ -15,11 +17,11 @@ const CurrentWeatherData = (props: PropsType) => {
                 </div>
             </div>
             <div className={styles.colRight}>
-                <p><strong>Today: </strong>{props.last_updated_weekday} {props.last_updated_date}</p>
-                <p><strong>Feels Like: </strong>{props.temp_c}&#176;C</p>
-                <p><strong>Humidity:</strong> {props.humidity} %</p>
-                <p><strong>Wind:</strong> {props.wind_kph} km/h, ({props.wind_dir})</p>
-                <p><strong>Gust: </strong>{props.gust_kph}</p>
+                <p className={styles.currentWeatherItem}> <FontAwesomeIcon icon={faCalendarAlt} className={styles.icon}/> <span>Today: </span>{props.last_updated_weekday} {props.last_updated_date}</p>
+                <p className={styles.currentWeatherItem}> <FontAwesomeIcon icon={faTemperatureHigh} className={styles.icon}/><span>Feels Like: </span>{props.temp_c}&#176;C</p>
+                <p className={styles.currentWeatherItem}> <FontAwesomeIcon icon={faWater} className={styles.icon}/><span>Humidity:</span> {props.humidity} %</p>
+                <p className={styles.currentWeatherItem}> <FontAwesomeIcon icon={faWind} className={styles.icon}/><span>Wind:</span> {props.wind_kph} km/h ({props.wind_dir})</p>
+                <p className={styles.currentWeatherItem}> <FontAwesomeIcon icon={faBacon} className={styles.icon}/><span>Gust: </span>{props.gust_kph}</p>
             </div>
         </div>
     )

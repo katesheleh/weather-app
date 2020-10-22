@@ -1,8 +1,7 @@
 import React, {ChangeEvent, useCallback, useState, KeyboardEvent, useEffect} from "react";
 import Input from "../common/Input/Input";
 import {useDispatch, useSelector} from "react-redux";
-import {searchTC} from "../../reducers/search-reducer";
-import Button from "../common/Button/Button";
+import {cleanDataAC, searchTC} from "../../reducers/search-reducer";
 import styles from './Search.module.scss';
 import {AppRootStateType} from "../../reducers/store";
 import {searchPlaceResponseType} from "../../types/common-types";
@@ -20,35 +19,26 @@ const Search = () => {
         setSearchVal(e.currentTarget.value)
     }, [searchVal])
 
-    const onKeyInputPressHandler = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
-            dispatch(searchTC(searchVal))
-        }
-    }, [searchVal])
-
     const onPlaceClick = useCallback((lat: number, lon: number) => {
         dispatch(getCurrentWeatherTC(lat, lon))
-        dispatch(getForecastTC(3, lat, lon))
+        dispatch(getForecastTC(1, lat, lon))
+        dispatch(cleanDataAC())
+        setSearchVal('')
     }, [searchVal])
 
     useEffect(() => {
-        if (debouncedSearchTerm) {
-            dispatch(searchTC(searchVal))
-        }
+        debouncedSearchTerm && dispatch(searchTC(searchVal))
     }, [debouncedSearchTerm])
 
     return (
         <div className='container'>
             <div className='sectionWrap'>
                 <h2>Search</h2>
-                <Input value={searchVal} labelTitle='' onChange={onInputChange}
-                       onKeyPress={onKeyInputPressHandler} placeholder='Search a place.....'/>
-                <div className={styles.searchOptions}>
-                    {searchData.map(d => {
-                        return (
-                            <p key={d.id} onClick={() => onPlaceClick(d.lat, d.lon)}>{d.name}</p>
-                        )
-                    })}
+                <Input value={searchVal} labelTitle='' onChange={onInputChange} placeholder='Search a place.....'/>
+                <div className={styles.options}>
+                    {searchData.map(d => <p className={styles.option}
+                                            key={d.id}
+                                            onClick={() => onPlaceClick(d.lat, d.lon)}>{d.name}</p>)}
                 </div>
             </div>
         </div>

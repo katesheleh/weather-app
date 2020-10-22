@@ -1,8 +1,36 @@
+@import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
+
 .days {
-  width: 100%;
   display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-right: -1%;
+  margin-left: -1%;
 
   .day {
-    width: 33.33%;
+    width: 31.3333%;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 25px;
+    background-color: rgba($lightColor, 0.4);
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-right: -1%;
+  margin-left: -1%;
+  margin-bottom: 12px;
+
+  > button {
+    width: 31.3333%;
+    margin-left: 1%;
+    margin-right: 1%;
+    border-radius: 10px;
   }
 }

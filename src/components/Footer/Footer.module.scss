@@ -1,0 +1,13 @@
+@import '../../assets/styles/variables.scss';
+@import '../../assets/styles/mixins.scss';
+
+.footer {
+	margin-bottom: 20px;
+}
+
+.copyright {
+	text-align: center;
+	margin-bottom: 0;
+	font-size: 16px;
+	color: rgba($lightColor, 0.8);
+}

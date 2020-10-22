@@ -12,16 +12,16 @@ export const searchReducer = (state: InitialStateType = initialState, action: Ac
     switch (action.type) {
         case 'SEARCH_DATA':
             return {...state, data: action.data}
+        case 'CLEAN_DATA':
+            return {...state, data: []}
         default:
             return state;
     }
 }
 
 // Action creators
-export const searchDataAC = (data: Array<searchPlaceResponseType>) => ({
-    type: 'SEARCH_DATA',
-    data
-} as const)
+export const searchDataAC = (data: Array<searchPlaceResponseType>) => ({type: 'SEARCH_DATA', data} as const)
+export const cleanDataAC = () => ({type: 'CLEAN_DATA'} as const)
 
 
 // THUNK
@@ -40,6 +40,7 @@ export type InitialStateType = {
     data: Array<searchPlaceResponseType>
 }
 
-export type ActionsType = SearchDataACType
+export type ActionsType = SearchDataACType | CleanDataACType
 
 export type SearchDataACType = ReturnType<typeof searchDataAC>
+export type CleanDataACType = ReturnType<typeof cleanDataAC>

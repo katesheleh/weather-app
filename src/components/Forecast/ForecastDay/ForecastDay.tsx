@@ -1,20 +1,20 @@
 import React from "react";
-import styles from './Forecast.module.scss'
+import styles from './ForecastDay.module.scss'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMoon, faSun} from "@fortawesome/free-solid-svg-icons";
 
 const ForecastDay = (props: PropsType) => {
     return (
         <div className={styles.wrap}>
-            <h3>{props.date}</h3>
-            <p><strong>sunrise: </strong> {props.sunrise}<br/><strong>sunset: </strong> {props.sunset}</p>
-            <div>
-                <img src={props.icon}/>
-                <p>{props.condition_text}</p>
+            <h3>{props.weekDay}</h3>
+            <p className={styles.date}>{props.date}</p>
+            <img src={props.icon} className={styles.img}/>
+            <p>{props.condition_text}</p>
+            <p className={styles.temp}>{props.min_temp} - {props.max_temp}&#176;C</p>
+            <div className={styles.details}>
+                <p><FontAwesomeIcon icon={faSun} className={styles.icon}/> {props.sunrise}</p>
+                <p><FontAwesomeIcon icon={faMoon} className={styles.icon}/> {props.sunset}</p>
             </div>
-            <p>
-                <strong>min </strong>{props.min_temp} deg
-                <br/>
-                <strong>max </strong>{props.max_temp} deg
-            </p>
         </div>
     )
 }
@@ -23,6 +23,7 @@ export default ForecastDay;
 
 
 type PropsType = {
+    weekDay: string
     date: string
     sunrise: string
     sunset: string

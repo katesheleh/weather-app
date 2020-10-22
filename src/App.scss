@@ -12,6 +12,12 @@ h2 {
   @include text(40px, 300, 1, $lightColor);
 }
 
+h3 {
+  margin-bottom: 15px;
+  margin-top: 0;
+  @include text(30px, 300, 1, $lightColor);
+}
+
 .App {
   padding-top: 30px;
 }

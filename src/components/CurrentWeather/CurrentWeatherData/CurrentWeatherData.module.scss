@@ -25,10 +25,6 @@
   width: 50%;
 }
 
-.desc {
-
-}
-
 .currentWeatherImg {
   position: absolute;
   left: -40px;
@@ -37,7 +33,6 @@
   width: 150px;
   opacity: 0.15;
 }
-
 
 .largeText {
   text-align: center;
@@ -49,4 +44,16 @@
   text-align: center;
   margin: 0;
   @include text(30px, 300, 1, $lightColor);
+}
+
+.currentWeatherItem {
+  > span {
+    padding-left: 10px;
+    padding-right: 7px;
+    color: rgba($lightColor, 0.4);
+  }
+}
+
+.icon {
+  color: rgba($lightColor, 0.4);
 }

@@ -1,0 +1,19 @@
+@import '../../../../assets/styles/variables.scss';
+@import '../../../../assets/styles/mixins.scss';
+
+.socialLink {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 0;
+}
+
+.socialLink a {
+	font-size: 20px;
+	color: rgba($lightColor, 0.8);
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.socialLink a:hover {
+	color: rgba($lightColor, 1);
+}

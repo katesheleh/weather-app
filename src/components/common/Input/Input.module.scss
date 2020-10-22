@@ -52,7 +52,7 @@
     border: 0;
     padding: 15px 15px;
     transition: .2s;
-    background: rgba($lightColor, 0.6);
+    background: rgba($lightColor, 0.4);
     font-family: $primaryFontFamily;
     @include text(20px, 500, 1, $mainColor);
     box-sizing: border-box;
