@@ -21,7 +21,7 @@ const Search = () => {
 
     const onPlaceClick = useCallback((lat: number, lon: number) => {
         dispatch(getCurrentWeatherTC(lat, lon))
-        dispatch(getForecastTC(1, lat, lon))
+        dispatch(getForecastTC(3, lat, lon))
         dispatch(cleanDataAC())
         setSearchVal('')
     }, [searchVal])

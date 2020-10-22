@@ -13,7 +13,7 @@ const Forecast = () => {
     const lat = useSelector<AppRootStateType, number>(state => state.currentWeather.lat)
     const lon = useSelector<AppRootStateType, number>(state => state.currentWeather.lon)
     const forecastInfo = useSelector<AppRootStateType, ForecastdayResponseType[]>(state => state.forecast.forecastday)
-    const [forecastDays, setForecastDays] = useState(1)
+    const [forecastDays, setForecastDays] = useState(3)
 
     useEffect(() => {
         if (lat !== 0 && lon !== 0) {
@@ -30,9 +30,9 @@ const Forecast = () => {
             <div className='sectionWrap'>
                 <h2>Forecast</h2>
                 <div className={styles.btns}>
-                    <Button labelTitle='weather for 1 day' onClick={() => setForecastDays(1)}/>
-                    <Button labelTitle='weather for 2 days' onClick={() => setForecastDays(2)}/>
-                    <Button labelTitle='weather for 3 days' onClick={() => setForecastDays(3)}/>
+                    <Button labelTitle='1 day' onClick={() => setForecastDays(1)}/>
+                    <Button labelTitle='2 days' onClick={() => setForecastDays(2)}/>
+                    <Button labelTitle='3 days' onClick={() => setForecastDays(3)}/>
                 </div>
                 <div className={styles.days}>
                     {forecastInfo.map((d) => {
