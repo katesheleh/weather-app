@@ -4,12 +4,22 @@
 h1 {
   text-align: center;
   @include text(50px, 300, 1, $lightColor);
+  @media (max-width: 767px) {
+    text-align: center;
+  }
 }
 
 h2 {
   margin-bottom: 15px;
   margin-top: 0;
   @include text(40px, 300, 1, $lightColor);
+  @media (max-width: 767px) {
+    text-align: center;
+  }
+  @media (max-width: 400px) {
+    font-size: 30px;
+    line-height: 1.2;
+  }
 }
 
 h3 {
@@ -23,7 +33,7 @@ h3 {
 }
 
 .container {
-  width: 100%;
+  width: auto;
   max-width: 1250px;
   padding-left: 15px;
   padding-right: 15px;
