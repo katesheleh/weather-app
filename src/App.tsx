@@ -21,19 +21,16 @@ function App() {
 
     return (
         <div className="App">
-            {requestIsFetching
-                ? <Preloader/>
-                : (!lat && !lon)
-                    ? <h1>Please allow your browser to share your location</h1>
-                    : <>
-                        <h1>- Weather -</h1>
-                        <Search/>
-                        <Weather/>
-                        <Forecast/>
-                        <Footer/>
-                    </>
-
-            }
+            {requestIsFetching && <Preloader/>}
+            {(!lat && !lon)
+                ? <h1>Please allow your browser to share your location</h1>
+                : <>
+                    <h1>- Weather -</h1>
+                    <Search/>
+                    <Weather/>
+                    <Forecast/>
+                    <Footer/>
+                </>}
 
 
         </div>
