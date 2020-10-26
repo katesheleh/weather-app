@@ -2,6 +2,7 @@
 @import '/assets/styles/mixins.scss';
 
 body {
+  min-height: 100vh;
   margin: 0;
   font-family: $primaryFontFamily;
   @include text(20px, 400, 1.5, $lightColor);

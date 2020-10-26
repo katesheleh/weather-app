@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useState, KeyboardEvent, useEffect} from "react";
+import React, {ChangeEvent, useCallback, useState, useEffect} from "react";
 import Input from "../common/Input/Input";
 import {useDispatch, useSelector} from "react-redux";
 import {cleanDataAC, searchTC} from "../../reducers/search-reducer";
