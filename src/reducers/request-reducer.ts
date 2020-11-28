@@ -1,26 +1,24 @@
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
 let initialState = {
-   error: '',
-   isFetching: false,
+    error: '',
+    isFetching: false,
 }
 
-export type InitialState = typeof initialState
+export const slice = createSlice({
+    name: 'request',
+    initialState: initialState,
+    reducers: {
+        errorAC(state, action: PayloadAction<{ error: string }>) {
+            state.error = action.payload.error
+        },
+        isFetchingAC(state, action: PayloadAction<{ isFetching: boolean }>) {
+            state.isFetching = action.payload.isFetching
+        }
+    }
+})
 
-export const requestReducer = (state: InitialState = initialState, action: InitReducerActionsType) => {
-   switch (action.type) {
-      case 'REQUEST_ERROR':
-         return {...state, error: action.error}
-      case 'REQUEST_IS_FETCHING':
-         return {...state, isFetching: action.isFetching}
-      default:
-         return state
-   }
-}
+export const requestReducer = slice.reducer
 
-export const errorAC = (error: string) => ({type: 'REQUEST_ERROR', error} as const)
-export const isFetchingAC = (isFetching: boolean) => ({type: 'REQUEST_IS_FETCHING', isFetching} as const)
-
-
-// TYPES
-export type ErrorACType = ReturnType<typeof errorAC>
-export type isFetchingACType = ReturnType<typeof isFetchingAC>
-type InitReducerActionsType = ErrorACType | isFetchingACType
+export const {errorAC} = slice.actions
+export const {isFetchingAC} = slice.actions

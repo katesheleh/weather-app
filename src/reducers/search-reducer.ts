@@ -1,37 +1,42 @@
 import {Dispatch} from 'redux'
-import {errorAC, ErrorACType, isFetchingAC, isFetchingACType} from "./request-reducer";
+import {errorAC} from "./request-reducer";
 import {searchAPI} from "../api/search-api";
 import {searchPlaceResponseType} from "../types/common-types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 let initialState: InitialStateType = {
     data: [] as Array<searchPlaceResponseType>
 } as InitialStateType;
 
-export const searchReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-    switch (action.type) {
-        case 'SEARCH_DATA':
-            return {...state, data: action.data}
-        case 'CLEAN_DATA':
-            return {...state, data: []}
-        default:
-            return state;
+const slice = createSlice({
+    name: 'search',
+    initialState: initialState,
+    reducers: {
+        searchDataAC(state, action: PayloadAction<{ data: searchPlaceResponseType[] }>) {
+            state.data = action.payload.data
+        },
+        cleanDataAC(state) {
+            state.data = []
+        }
     }
-}
+})
+
+//reducer
+export const searchReducer = slice.reducer
 
 // Action creators
-export const searchDataAC = (data: Array<searchPlaceResponseType>) => ({type: 'SEARCH_DATA', data} as const)
-export const cleanDataAC = () => ({type: 'CLEAN_DATA'} as const)
-
+export const {searchDataAC} = slice.actions
+export const {cleanDataAC} = slice.actions
 
 // THUNK
-export const searchTC = (place: string) => (dispatch: Dispatch<ActionsType | isFetchingACType | ErrorACType>) => {
+export const searchTC = (place: string) => (dispatch: Dispatch) => {
     searchAPI.place(place)
         .then(res => {
-            dispatch(searchDataAC(res.data))
+            dispatch(searchDataAC({data: res.data}))
         })
         .catch((error) => {
-            dispatch(errorAC(error.response.data.error))
+            dispatch(errorAC({error: error.response.data.error}))
         })
 }
 
@@ -39,8 +44,3 @@ export const searchTC = (place: string) => (dispatch: Dispatch<ActionsType | isF
 export type InitialStateType = {
     data: Array<searchPlaceResponseType>
 }
-
-export type ActionsType = SearchDataACType | CleanDataACType
-
-export type SearchDataACType = ReturnType<typeof searchDataAC>
-export type CleanDataACType = ReturnType<typeof cleanDataAC>

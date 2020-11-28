@@ -1,7 +1,8 @@
 import {Dispatch} from 'redux'
-import {errorAC, ErrorACType, isFetchingAC, isFetchingACType} from "./request-reducer";
+import {errorAC} from "./request-reducer";
 import {ConditionResponseType, CurrentWeatherResponseType, LocationResponseType} from "../types/common-types";
 import {currentWeatherApi} from "../api/currentWeather-api";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 let initialState: InitialStateType = {
@@ -13,46 +14,46 @@ let initialState: InitialStateType = {
     } as CurrentWeatherResponseType
 } as InitialStateType;
 
-export const currentWeatherReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-    switch (action.type) {
-        case 'COORDINATES':
-            return {...state, lat: action.lat, lon: action.lon}
-        case 'LOCATION':
-            return {...state, location: action.location}
-        case 'CURRENT_WEATHER':
-            return {...state, currentWeather: action.currentWeather}
-        default:
-            return state;
+const slice = createSlice({
+    name: 'currentWeather',
+    initialState: initialState,
+    reducers: {
+        userCoordinatesAC(state, action: PayloadAction<{ lat: number, lon: number }>) {
+            state.lat = action.payload.lat
+            state.lon = action.payload.lon
+        },
+        userLocationAC(state, action: PayloadAction<{ location: LocationResponseType }>) {
+            state.location = action.payload.location
+        },
+        currentWeatherAC(state, action: PayloadAction<{ currentWeather: CurrentWeatherResponseType }>) {
+            state.currentWeather = action.payload.currentWeather
+        }
     }
-}
+})
+
+// reducer
+export const currentWeatherReducer = slice.reducer
 
 // Action creators
-export const userCoordinatesAC = (lat: number, lon: number) => ({type: 'COORDINATES', lat, lon} as const)
-export const userLocationAC = (location: LocationResponseType) => ({type: 'LOCATION', location} as const)
-export const currentWeatherAC = (currentWeather: CurrentWeatherResponseType) => ({
-    type: 'CURRENT_WEATHER',
-    currentWeather
-} as const)
-
+export const {userCoordinatesAC} = slice.actions
+export const {userLocationAC} = slice.actions
+export const {currentWeatherAC} = slice.actions
 
 // THUNK
-export const getUserCoordinatesTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const getUserCoordinatesTC = () => (dispatch: Dispatch) => {
     navigator.geolocation.getCurrentPosition(function (position) {
-        dispatch(userCoordinatesAC(position.coords.latitude, position.coords.longitude))
+        dispatch(userCoordinatesAC({lat: position.coords.latitude, lon: position.coords.longitude}))
     });
 }
 
-export const getCurrentWeatherTC = (lat: number, lon: number) => (dispatch: Dispatch<ActionsType | isFetchingACType | ErrorACType>) => {
-    //dispatch(isFetchingAC(true))
+export const getCurrentWeatherTC = (lat: number, lon: number) => (dispatch: Dispatch) => {
     currentWeatherApi.currentWeather(lat, lon)
         .then(res => {
-            //dispatch(isFetchingAC(false))
-            dispatch(userLocationAC(res.data.location))
-            dispatch(currentWeatherAC(res.data.current))
+            dispatch(userLocationAC({location: res.data.location}))
+            dispatch(currentWeatherAC({currentWeather: res.data.current}))
         })
         .catch((error) => {
-            dispatch(errorAC(error.response.data.error))
-            //dispatch(isFetchingAC(false))
+            dispatch(errorAC({error: error.response.data.error}))
         })
 }
 
@@ -63,9 +64,3 @@ export type InitialStateType = {
     location: LocationResponseType
     currentWeather: CurrentWeatherResponseType
 }
-
-export type ActionsType = userCoordinatesACType | userLocationACType | currentWeatherACType
-
-export type userCoordinatesACType = ReturnType<typeof userCoordinatesAC>
-export type userLocationACType = ReturnType<typeof userLocationAC>
-export type currentWeatherACType = ReturnType<typeof currentWeatherAC>

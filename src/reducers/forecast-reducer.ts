@@ -1,39 +1,39 @@
 import {Dispatch} from 'redux'
-import {errorAC, ErrorACType, isFetchingAC, isFetchingACType} from "./request-reducer";
-import {forecastAPI, ForecastDayInfoType, ForecastdayResponseType} from "../api/forecast-api";
+import {errorAC} from "./request-reducer";
+import {forecastAPI, ForecastdayResponseType} from "../api/forecast-api";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 let initialState: InitialStateType = {
     forecastday: [] as Array<ForecastdayResponseType>
 } as InitialStateType;
 
-export const forecastReducer = (state: InitialStateType = initialState, action: ActionsType) => {
-    switch (action.type) {
-        case 'FORECAST_DATA':
-            return {...state, forecastday: action.forecastday}
-        default:
-            return state;
+
+const slice = createSlice({
+    name: 'forecast',
+    initialState: initialState,
+    reducers: {
+        forecastDataAC(state, action: PayloadAction<{ forecastday: ForecastdayResponseType[] }>) {
+            state.forecastday = action.payload.forecastday
+        }
     }
-}
+})
+
+//Reducer
+export const forecastReducer = slice.reducer
 
 // Action creators
-export const forecastDataAC = (forecastday: Array<ForecastdayResponseType>) => ({
-    type: 'FORECAST_DATA',
-    forecastday
-} as const)
+export const {forecastDataAC} = slice.actions
 
 
 // THUNK
-export const getForecastTC = (days: number, lat: number, lon: number) => (dispatch: Dispatch<ActionsType | isFetchingACType | ErrorACType>) => {
-    //dispatch(isFetchingAC(true))
+export const getForecastTC = (days: number, lat: number, lon: number) => (dispatch: Dispatch) => {
     forecastAPI.dailyWeather(days, lat, lon)
         .then(res => {
-            //dispatch(isFetchingAC(false))
-            dispatch(forecastDataAC(res.data.forecast.forecastday))
+            dispatch(forecastDataAC({forecastday: res.data.forecast.forecastday}))
         })
         .catch((error) => {
-            dispatch(errorAC(error.response.data.error))
-            //dispatch(isFetchingAC(false))
+            dispatch(errorAC({error: error.response.data.error}))
         })
 }
 
@@ -41,7 +41,3 @@ export const getForecastTC = (days: number, lat: number, lon: number) => (dispat
 export type InitialStateType = {
     forecastday: Array<ForecastdayResponseType>
 }
-
-export type ActionsType = ForecastDataACType
-
-export type ForecastDataACType = ReturnType<typeof forecastDataAC>
