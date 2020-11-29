@@ -1,41 +1,40 @@
-import {Dispatch} from 'redux'
-import {errorAC} from "./request-reducer";
 import {forecastAPI, ForecastdayResponseType} from "../api/forecast-api";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {errorAC} from "./request-reducer";
 
 
-let initialState: InitialStateType = {
-    forecastday: [] as Array<ForecastdayResponseType>
-} as InitialStateType;
+// THUNK
+export const getForecastTC = createAsyncThunk(
+    'forecast/getForecast',
+    async (param: { days: number, lat: number, lon: number }, thunkAPI) => {
+        try {
+            const res = await forecastAPI.dailyWeather(param.days, param.lat, param.lon)
+            return {forecastday: res.data.forecast.forecastday}
+        } catch (error) {
+            thunkAPI.dispatch(errorAC({error: error.response.data.error}))
+            return false
+        }
 
+    }
+)
 
 const slice = createSlice({
     name: 'forecast',
-    initialState: initialState,
-    reducers: {
-        forecastDataAC(state, action: PayloadAction<{ forecastday: ForecastdayResponseType[] }>) {
-            state.forecastday = action.payload.forecastday
-        }
+    initialState: {
+        forecastday: [] as Array<ForecastdayResponseType>
+    } as InitialStateType,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(getForecastTC.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.forecastday = action.payload.forecastday
+            }
+        })
     }
 })
 
 //Reducer
 export const forecastReducer = slice.reducer
-
-// Action creators
-export const {forecastDataAC} = slice.actions
-
-
-// THUNK
-export const getForecastTC = (days: number, lat: number, lon: number) => (dispatch: Dispatch) => {
-    forecastAPI.dailyWeather(days, lat, lon)
-        .then(res => {
-            dispatch(forecastDataAC({forecastday: res.data.forecast.forecastday}))
-        })
-        .catch((error) => {
-            dispatch(errorAC({error: error.response.data.error}))
-        })
-}
 
 // TYPES
 export type InitialStateType = {

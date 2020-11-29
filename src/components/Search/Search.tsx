@@ -20,8 +20,8 @@ const Search = () => {
     }, [searchVal])
 
     const onPlaceClick = useCallback((lat: number, lon: number) => {
-        dispatch(getCurrentWeatherTC(lat, lon))
-        dispatch(getForecastTC(3, lat, lon))
+        dispatch(getCurrentWeatherTC({lat, lon}))
+        dispatch(getForecastTC({days: 3, lat: lat, lon: lon}))
         dispatch(cleanDataAC())
         setSearchVal('')
     }, [searchVal])

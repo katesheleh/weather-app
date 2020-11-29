@@ -1,24 +1,39 @@
-import {Dispatch} from 'redux'
-import {errorAC} from "./request-reducer";
 import {searchAPI} from "../api/search-api";
 import {searchPlaceResponseType} from "../types/common-types";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {errorAC} from "./request-reducer";
 
 
-let initialState: InitialStateType = {
-    data: [] as Array<searchPlaceResponseType>
-} as InitialStateType;
+// THUNK
+export const searchTC = createAsyncThunk(
+    'search/searchTC',
+    async (place: string, thunkAPI) => {
+        try {
+            const res = await searchAPI.place(place)
+            return {data: res.data}
+        } catch (error) {
+            thunkAPI.dispatch(errorAC({error: error.response.data.error}))
+            return false
+        }
+
+    })
 
 const slice = createSlice({
     name: 'search',
-    initialState: initialState,
+    initialState: {
+        data: [] as Array<searchPlaceResponseType>
+    } as InitialStateType,
     reducers: {
-        searchDataAC(state, action: PayloadAction<{ data: searchPlaceResponseType[] }>) {
-            state.data = action.payload.data
-        },
         cleanDataAC(state) {
             state.data = []
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(searchTC.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.data = action.payload.data
+            }
+        })
     }
 })
 
@@ -26,19 +41,7 @@ const slice = createSlice({
 export const searchReducer = slice.reducer
 
 // Action creators
-export const {searchDataAC} = slice.actions
 export const {cleanDataAC} = slice.actions
-
-// THUNK
-export const searchTC = (place: string) => (dispatch: Dispatch) => {
-    searchAPI.place(place)
-        .then(res => {
-            dispatch(searchDataAC({data: res.data}))
-        })
-        .catch((error) => {
-            dispatch(errorAC({error: error.response.data.error}))
-        })
-}
 
 // TYPES
 export type InitialStateType = {

@@ -17,7 +17,7 @@ const Forecast = () => {
 
     useEffect(() => {
         if (lat !== 0 && lon !== 0) {
-            dispatch(getForecastTC(forecastDays, lat, lon))
+            dispatch(getForecastTC({days: forecastDays, lat: lat, lon: lon}))
         }
     }, [lat, lon, forecastDays])
 

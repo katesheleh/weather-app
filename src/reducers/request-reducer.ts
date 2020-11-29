@@ -20,5 +20,4 @@ export const slice = createSlice({
 
 export const requestReducer = slice.reducer
 
-export const {errorAC} = slice.actions
-export const {isFetchingAC} = slice.actions
+export const {errorAC, isFetchingAC} = slice.actions
